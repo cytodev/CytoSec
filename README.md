@@ -14,7 +14,7 @@ It is also possible to bruteforce this MAC, but let's not take that into accaunt
 I wanted to create this, so I did.
 
 #### How NOT to use this?
-Please don't use this for anything illigal, I just made this as an experiment and don't want my hand in termonuclear war.
+Please don't use this for anything illigal, I just made this as an experiment and don't want my hand in thermonuclear war.
 
 ## TODO
 - [x] make a base64 function in C (I actually created an qwezety function... it's base64 on acid)
