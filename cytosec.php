@@ -166,7 +166,7 @@
 					<footer>
 						<div id="footerwrap">
 							<span id="rightToCopy">&copy; 2014 &mdash; <?php echo date("Y"); ?> &emsp; <a href="http://github.com/CytoDev" target="_blank" title="CytoDev on Github">CytoDev</a></span>
-							<a id="how" href="#">How does this work?</a>
+							<a id="how" href="https://github.com/CytoDev/CytoSec" target="_blank" title="README.md on Github">How does this work?</a>
 						</div>
 					</footer>
 				</div>
