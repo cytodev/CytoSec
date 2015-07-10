@@ -2,7 +2,7 @@
 a crypto client written in PHP
 
 #### What is this?
-CytoSec is a crypto client written in PHP. it can be used to send secured messages along a network (not yet implemented).
+CytoSec is a crypto client written in PHP, it is a proof of concept and I am planning to rewrite it in C. it can be used to send secured messages along a network (not yet implemented).
 I am aiming to rewrite this client in C, and build a messenger interface. This client can also be used to store passwords using a master key. Anyone who knows the MAC can decrypt the message, so it is your job to keep the MAC safe.
 
 #### How does it work?
