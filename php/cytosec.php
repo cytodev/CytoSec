@@ -6,8 +6,14 @@
 
 	class CytoSec {
 
+		/**
+		 * This holds a 'passphrase', if you will, to ensure maximum AES type security
+		 */
 		protected $MessageAuthenticationCode = '';
 
+		/**
+		 * Does it even need this? I've always wondered...
+		 */
 		public function __construct() {
 
 		}
@@ -20,6 +26,17 @@
 			return $this->MessageAuthenticationCode;
 		}
 
+		/**
+		 * The only function you need to call.
+		 * 
+		 * it even cleans all variables that aren't even used!
+		 * 
+		 * @param $w (string, like almost everything in php)
+		 *     the way to act in, this can be 'e' for encrypt
+		 *     or 'd' for decrypt.
+		 * @param $m (string)
+		 *     the message you want to en/de-crypt
+		 */
 		public function act($w, $m) {
 			switch($w) {
 				case 'e': return $this->enc($m); break;
@@ -36,6 +53,22 @@
 			}
 		}
 
+		/**
+		 * Where the magic happens.
+		 * 
+		 * this function will create a salt using s(),
+		 * set a random number to encrypt to ensure more randomness,
+		 * encrypt $t times using base64, rijndael, the MAC as md5, and the salt hashed twice with md5
+		 * 
+		 * to mix it up even more, the resulting string is split into four parts:
+		 *   1: length( 1) $t for confusion, we don't actually need this one ever again.
+		 *   2: length(16) the salt's first 16 characters.
+		 *   3: length( *) the message
+		 *   4: length(16) the salt's last 16 characters.
+		 * 
+		 * @param $m (string)
+		 *     the message.
+		 */
 		private function enc($m) {
 			$s = $this->s($m);
 			$t = rand(1, 7);
@@ -53,6 +86,14 @@
 			return $t.substr($s, 0, 16).rtrim($c, '=').substr($s, 16, 32);
 		}
 
+		/**
+		 * Decodes the message
+		 * 
+		 * Same as encoding, but the other way around.
+		 * 
+		 * @param $m (string)
+		 *     the message.
+		 */
 		private function dec($m) {
 			return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256
 			                           ,md5($this->MessageAuthenticationCode)
@@ -64,6 +105,17 @@
 			            );
 		}
 
+		/**
+		 * salts the message
+		 * 
+		 * creates a salt containing the message 7 times, and keeps
+		 * the previous salt as a parameter for the next.
+		 * 
+		 * Would you like fries with that?
+		 * 
+		 * @param $m (string)
+		 *     the message
+		 */
 		private function s($m) {
 			$a = array(rand(0, 7).'C'
 			          ,rand(0, 7).'Y'
